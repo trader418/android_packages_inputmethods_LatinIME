@@ -88,10 +88,14 @@ public final class DictionaryPackInstallBroadcastReceiver extends BroadcastRecei
 
             // Search for some dictionary pack in the just-installed package. If found, reread.
             for (ProviderInfo info : providers) {
+              try {
                 if (DictionaryPackConstants.AUTHORITY.equals(info.authority)) {
                     mService.resetSuggestMainDict();
                     return;
                 }
+              } catch (Exception e) {
+                    Log.e(TAG, "DictionaryPackConstants.AUTHORITY");
+              }
             }
             // If we come here none of the authorities matched the one we searched for.
             // We can exit safely.
